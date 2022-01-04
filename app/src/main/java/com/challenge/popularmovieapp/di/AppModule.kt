@@ -1,10 +1,13 @@
 package com.challenge.popularmovieapp.di
 
 import androidx.room.Room
-import androidx.viewbinding.BuildConfig
+import com.challenge.popularmovieapp.BuildConfig
 import com.challenge.popularmovieapp.data.local.MovieDatabase
 import com.challenge.popularmovieapp.data.remote.MovieService
-import com.challenge.popularmovieapp.data.repository.MovieRepository
+import com.challenge.popularmovieapp.domain.repository.MovieRepository
+import com.challenge.popularmovieapp.domain.use_case.DetailUseCase
+import com.challenge.popularmovieapp.feature.detail.DetailViewModel
+import com.challenge.popularmovieapp.feature.landing.LandingViewModel
 import com.challenge.popularmovieapp.util.ApiKeyInterceptor
 import com.challenge.popularmovieapp.util.Injection
 import com.squareup.moshi.Moshi
@@ -27,12 +30,13 @@ val appModule = module {
     single<Converter.Factory> { MoshiConverterFactory.create(get()) }
     single<Retrofit.Builder> {
         Retrofit.Builder()
-            .baseUrl("https://api.themoviedb.org/3/")
+            .baseUrl(BuildConfig.TMDB_BASE_URL)
             .addConverterFactory(get())
     }
     single {
         HttpLoggingInterceptor().apply {
-            level = if (BuildConfig.DEBUG) HttpLoggingInterceptor.Level.BODY else HttpLoggingInterceptor.Level.NONE
+            level =
+                if (BuildConfig.DEBUG) HttpLoggingInterceptor.Level.BODY else HttpLoggingInterceptor.Level.NONE
         }
     }
     single { ApiKeyInterceptor() }
@@ -51,7 +55,7 @@ val appModule = module {
     }
     single<MovieService> { get<Retrofit>().create(MovieService::class.java) }
     single {
-        Room.databaseBuilder(androidContext(), MovieDatabase::class.java, "movie-database")
+        Room.databaseBuilder(androidContext(), MovieDatabase::class.java, "popular_movie_db")
             .fallbackToDestructiveMigration()
             .build()
     }
@@ -62,4 +66,7 @@ val appModule = module {
         )
     }
 
+    factory { DetailUseCase(get()) }
+    viewModel { LandingViewModel(get()) }
+    viewModel { DetailViewModel(get()) }
 }

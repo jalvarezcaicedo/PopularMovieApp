@@ -1,4 +1,4 @@
-package com.challenge.popularmovieapp.data.model
+package com.challenge.popularmovieapp.domain.model
 
 import com.squareup.moshi.Json
 

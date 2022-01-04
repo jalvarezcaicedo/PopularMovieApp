@@ -15,9 +15,6 @@ interface MovieDao {
     @Query("SELECT * FROM movies ORDER BY api_page_index")
     fun getMoviesFlow(): PagingSource<Int, MovieEntity>
 
-    @Query("SELECT * FROM movies")
-    fun getMovies(): List<MovieEntity>
-
     @Query("DELETE FROM movies")
     suspend fun deleteAllPopularMovies()
 
@@ -27,7 +24,4 @@ interface MovieDao {
     @Transaction
     @Query("SELECT * FROM movies WHERE movies.id = :movieId")
     suspend fun getMovieById(movieId: Int): MovieEntity?
-
-    @Update
-    suspend fun updateMovies(list: List<MovieEntity>)
 }
