@@ -1,4 +1,4 @@
-A simple project taken data from [The Movie DB](https://www.themoviedb.org) based on Kotlin MVVM clean architecture
+A simple project to Chiper challenge taken data from [The Movie DB](https://www.themoviedb.org) based on Kotlin MVVM clean architecture
 
 ## Architecture
 Based on mvvm architecture and repository pattern.<br><br>
