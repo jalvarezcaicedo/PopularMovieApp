@@ -5,6 +5,7 @@ import androidx.paging.LoadType
 import androidx.paging.PagingState
 import androidx.paging.RemoteMediator
 import androidx.room.withTransaction
+import com.challenge.popularmovieapp.BuildConfig
 import com.challenge.popularmovieapp.data.local.MovieDatabase
 import com.challenge.popularmovieapp.data.local.entity.MovieEntity
 import com.challenge.popularmovieapp.data.local.entity.RemoteKeyEntity
@@ -43,7 +44,7 @@ class PageKeyedRemoteMediator(
                 }
             }
             Timber.d("Loading with load key: $loadKey, load type: $loadType")
-            val data = service.getPopularMovies(loadKey).bodyOrThrow()
+            val data = service.getPopularMovies(loadKey, BuildConfig.LANG_EN).bodyOrThrow()
             val movies = data.movies.orEmpty()
             database.withTransaction {
                 if (loadType == LoadType.REFRESH) {

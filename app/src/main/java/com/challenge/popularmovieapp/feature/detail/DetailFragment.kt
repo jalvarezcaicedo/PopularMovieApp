@@ -5,7 +5,7 @@ import android.view.View
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.navArgs
-import coil.load
+import com.bumptech.glide.Glide
 import com.challenge.popularmovieapp.R
 import com.challenge.popularmovieapp.databinding.DetailFragmentBinding
 import com.challenge.popularmovieapp.util.viewBinding
@@ -26,10 +26,13 @@ class DetailFragment : Fragment(R.layout.detail_fragment) {
     private fun loadMovie(movieId: Int) {
         lifecycleScope.launchWhenCreated {
             val movie = viewModel.getMovieById(movieId = movieId) ?: return@launchWhenCreated
-            binding.titleTextView.text = movie.title
-            binding.posterImageView.load(movie.imageUrl)
-            binding.overviewTextView.text = movie.overview
-            binding.releaseDateTextView.text = movie.releaseDate
+            binding.tvTitle.text = movie.title
+            Glide.with(binding.root)
+                .load(movie.imageBackdropUrl)
+                .fitCenter()
+                .into(binding.ivBackdropPath)
+            binding.tvOverview.text = movie.overview
+            binding.tvReleaseDate.text = movie.releaseDate
         }
     }
 }

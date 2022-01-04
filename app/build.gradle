@@ -20,6 +20,7 @@ android {
         buildConfigField("String", "TMDB_BASE_URL", "\"https://api.themoviedb.org/3/\"")
         buildConfigField("String", "TMDB_IMAGE_BASE_URL", "\"https://image.tmdb.org/t/p/w500\"")
         buildConfigField("String", "API_KEY", "\"03e29fa125608afd421e229dc71545cd\"")
+        buildConfigField("String", "LANG_EN", "\"en-US\"")
     }
 
     buildFeatures {
@@ -66,8 +67,7 @@ dependencies {
     def okhttp_version = '4.9.0'
     implementation "com.squareup.okhttp3:okhttp:$okhttp_version"
     implementation "com.squareup.okhttp3:logging-interceptor:$okhttp_version"
-
-
+    
     //Lifecycle
     def lifecycle_version = "2.4.0"
     implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:$lifecycle_version"
@@ -124,9 +124,6 @@ dependencies {
     testImplementation "org.jetbrains.kotlinx:kotlinx-coroutines-test:$coroutinesVersion"
     testImplementation "androidx.paging:paging-common-ktx:$paging_version"
     testImplementation "com.google.truth:truth:$truthVersion"
-    testImplementation('com.jraska.livedata:testing-ktx:1.2.0')
-
-    //mockito
-    testImplementation "io.mockk:mockk:1.10.0"
-    androidTestImplementation "io.mockk:mockk:1.10.0"
+    testImplementation 'org.mockito:mockito-inline:2.13.0'
+    testImplementation "com.nhaarman.mockitokotlin2:mockito-kotlin:2.2.0"
 }

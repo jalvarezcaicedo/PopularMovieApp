@@ -1,5 +1,6 @@
 package com.challenge.popularmovieapp.util
 
+import com.challenge.popularmovieapp.BuildConfig
 import okhttp3.Interceptor
 import okhttp3.Response
 
@@ -14,7 +15,6 @@ class ApiKeyInterceptor : Interceptor {
 
     companion object {
         const val API_KEY_PARAMETER = "api_key"
-        const val API_KEY =
-            "03e29fa125608afd421e229dc71545cd" // this should be at least hidden with NDK help
+        const val API_KEY = BuildConfig.API_KEY
     }
 }
